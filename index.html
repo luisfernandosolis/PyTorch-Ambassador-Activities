@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackathon PyTorch UNSCH 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0f141b;
+      --bg-secondary: #181f29;
+      --accent: #ee4c2c;
+      --accent-soft: rgba(238, 76, 44, 0.12);
+      --text-primary: #f5f7fa;
+      --text-secondary: #a9b7d0;
+      --card-border: rgba(255, 255, 255, 0.05);
+      --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+      font-size: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(238, 76, 44, 0.15), transparent 45%),
+                  radial-gradient(circle at bottom right, rgba(112, 122, 255, 0.12), transparent 45%),
+                  var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 3.5rem 1.5rem 2rem;
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #ff784f);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+    }
+
+    .brand span {
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.75rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 700;
+      margin: 0 0 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      margin: 0 0 2.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 520px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.95rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 12px 25px -12px rgba(238, 76, 44, 0.8);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 35px -15px rgba(238, 76, 44, 0.85);
+    }
+
+    .hero-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      padding: 2.5rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .hero-card h2 {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-card li {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .hero-card strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 0 1.5rem 4.5rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      padding: 3rem;
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 600;
+    }
+
+    .agenda-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .agenda-item {
+      padding: 1.25rem 1.5rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(20, 26, 35, 0.7);
+      display: grid;
+      gap: 0.45rem;
+      transition: border 0.2s ease;
+    }
+
+    .agenda-item:hover {
+      border-color: rgba(238, 76, 44, 0.4);
+    }
+
+    .agenda-time {
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    .organizers {
+      display: grid;
+      gap: 1.3rem;
+    }
+
+    .organizers p,
+    .requirements p {
+      margin: 0;
+      color: var(--text-secondary);
+    }
+
+    .organizers strong,
+    .requirements strong {
+      color: var(--text-primary);
+    }
+
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      background: rgba(12, 17, 24, 0.8);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding-bottom: 1.5rem;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-card {
+        padding: 2rem;
+      }
+
+      .section-inner {
+        padding: 2.25rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      body {
+        font-size: 15px;
+      }
+
+      .hero {
+        padding-top: 3rem;
+      }
+
+      .section-inner {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <mark>Py</mark>
+        <span>Hackathon UNSCH 2025</span>
+      </div>
+      <a class="cta-button" href="https://forms.gle/registro-hackathon-unsch" target="_blank" rel="noopener noreferrer">
+        Inscríbete ahora
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Hackathon PyTorch UNSCH 2025</h1>
+        <p>
+          Una jornada intensiva para impulsar soluciones con inteligencia artificial sobre PyTorch. Acompáñanos a co-crear proyectos que impacten positivamente desde Ayacucho hacia el mundo.
+        </p>
+        <a class="cta-button" href="https://forms.gle/registro-hackathon-unsch" target="_blank" rel="noopener noreferrer">
+          Reservar mi cupo
+        </a>
+      </div>
+
+      <aside class="hero-card">
+        <h2>Información clave</h2>
+        <ul>
+          <li>
+            <strong>Fecha</strong>
+            <span>29 de noviembre de 2025</span>
+          </li>
+          <li>
+            <strong>Ubicación</strong>
+            <span>Escuela de Ingeniería de Sistemas, Universidad Nacional de San Cristóbal de Huamanga</span>
+          </li>
+          <li>
+            <strong>Requisitos</strong>
+            <span>Conocimientos básicos de Python y ganas de aprender construcción de modelos con PyTorch.</span>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <h2 class="section-title">Agenda</h2>
+        <div class="agenda-grid">
+          <div class="agenda-item">
+            <span class="agenda-time">09:00</span>
+            <span>Apertura del evento y bienvenida.</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-time">10:00</span>
+            <span>Presentación de retos e instrucciones de la competencia.</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-time">12:00</span>
+            <span>Coffee break y mentoría para equipos.</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-time">14:00</span>
+            <span>Segunda etapa de desarrollo y acompañamiento técnico.</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-time">16:00</span>
+            <span>Envío de resultados y revisión final.</span>
+          </div>
+          <div class="agenda-item">
+            <span class="agenda-time">16:30</span>
+            <span>Anuncio de ganadores y clausura.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <h2 class="section-title">Organizan</h2>
+        <div class="organizers">
+          <p><strong>PyTorch Fundación</strong></p>
+          <p><strong>Escuela de Ingeniería de Sistemas (UNSCH)</strong></p>
+          <p><strong>Semillero de Investigación “Círculo de Investigación en Inteligencia Artificial y Sistemas Inteligentes (CIIASI)”</strong></p>
+          <p><strong>Universidad Nacional de San Cristóbal de Huamanga</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner">
+        <h2 class="section-title">Participa</h2>
+        <div class="requirements">
+          <p>
+            Regístrate de forma gratuita y prepárate para un día de aprendizaje intensivo, colaboración y networking con la comunidad PyTorch. Asegura tu lugar completando el formulario de inscripción.
+          </p>
+          <p>
+            Para participar se requiere <strong>conocimiento básico de Python</strong> y disponibilidad durante toda la jornada.
+          </p>
+        </div>
+        <a class="cta-button" href="https://forms.gle/registro-hackathon-unsch" target="_blank" rel="noopener noreferrer">
+          Formulario de inscripción
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Hackathon PyTorch UNSCH. Todos los derechos reservados.
+  </footer>
+</body>
+</html>
+
